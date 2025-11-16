@@ -7,6 +7,7 @@ EMOJIS = ["💃", "🍕", "🛺", "🎈", "🧧", "🎫", "📺", "🍌"]  # ←
 buttons = []
 opened = []    # indices of currently flipped cards
 matched = []   # indices of solved cards
+currentSet = []
 
 #the setup (duplication and shuffling)
 def startGame():
@@ -20,27 +21,36 @@ def startGame():
         buttons.append(x)
         buttons.append(x)
     #shuffle go here
-    startbutton.set_text("Restart") #used as the end of the function
+    shuffle(buttons)
+    print(buttons)
+    startbutton.set_text("Restart!") #used as the end of the function
 
 # TODO 2: Write function to flip non-matching cards back
 def reset_pair():
+    print("ran")
     global opened
-    
+    for x in opened:
+        gamebtns[opened[x]].set_text(IDKCARD)
 
 # TODO 3: Write click handler
 def handle_click(idx):
     global opened
     if not(idx in (matched or opened)):
         opened.append(idx)
+        numIndex = idx[2:]
+        gamebtns[idx].set_text(buttons[int(numIndex)])
+        currentSet.append(buttons[int(numIndex)])
     if len(opened) == 2:
         print("checked!")
-        if False:
-            pass
+        if currentSet[0] == currentSet[1]:
+            for x in opened:
+                matched.append(opened[x])
         else:
-            ui.timer(0.5, lambda: reset_pair())
+            ui.timer(0.5, lambda: reset_pair(), once=True)
         opened.clear()
 
 #set up the ui
+ui.label("Press the button below to start the game!")
 startbutton = ui.button("Start!", on_click=lambda: startGame())
 # Build 4x4 grid
 with ui.grid(columns=4):
