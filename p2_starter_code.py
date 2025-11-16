@@ -29,12 +29,13 @@ def startGame():
 def reset_pair():
     global opened
     for x in opened:
+        print(x)
         gamebtns[opened[x]].set_text(IDKCARD)
 
 # TODO 3: Write click handler
 def handle_click(idx):
     global opened
-    if not(idx in (matched or opened)):
+    if not(idx in matched or idx in opened):
         opened.append(idx)
         numIndex = idx[2:]
         gamebtns[idx].set_text(buttons[int(numIndex)])
