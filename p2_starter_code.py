@@ -27,7 +27,6 @@ def startGame():
 
 # TODO 2: Write function to flip non-matching cards back
 def reset_pair():
-    print("ran")
     global opened
     for x in opened:
         gamebtns[opened[x]].set_text(IDKCARD)
@@ -41,7 +40,6 @@ def handle_click(idx):
         gamebtns[idx].set_text(buttons[int(numIndex)])
         currentSet.append(buttons[int(numIndex)])
     if len(opened) == 2:
-        print("checked!")
         if currentSet[0] == currentSet[1]:
             for x in opened:
                 matched.append(opened[x])
